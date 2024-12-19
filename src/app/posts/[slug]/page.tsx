@@ -3,8 +3,10 @@
 import prisma from "../../lib/db";
 import Link from "next/link";
 
-export default async function PostPage({ params }) {
-    const { slug } = await params;
+type tParams = Promise<{ slug: string }>;
+
+export default async function PostPage(props: { params: tParams }) {
+    const { slug } = await props.params;
 
     const post = await prisma.post.findUnique({
         where: {
